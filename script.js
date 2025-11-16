@@ -17,8 +17,11 @@ const seletorTipoSemanaAtual = document.getElementById('tipo-semana-atual');
 function obterSegundaFeira(data) {
     const d = new Date(data);
     const dia = d.getDay();
-    const diferenca = d.getDate() - dia + (dia === 0 ? -6 : 1); 
-    const segundaFeira = new Date(d.setDate(diferenca));
+    // Se for domingo (0), avança para a segunda-feira seguinte (+1)
+    // Caso contrário, volta para a segunda-feira da semana atual
+    const diferenca = dia === 0 ? 1 : -(dia - 1);
+    const segundaFeira = new Date(d);
+    segundaFeira.setDate(d.getDate() + diferenca);
     segundaFeira.setHours(0, 0, 0, 0);
     return segundaFeira;
 }
